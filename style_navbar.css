@@ -1,0 +1,32 @@
+.navbar {
+    background-color: #fff !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.navbar-light .navbar-toggler {
+    border-color: #536878;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #000000 !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #000000 !important;
+}
+
+.navbar-light .navbar-brand {
+    color: #000000 !important; /* Set the desired color */
+}
+
+.navbar-light .navbar-brand:hover {
+    color: #000000 !important; /* Set the desired hover color */
+}
+
+/* Change color of the bars */
+.navbar-light .navbar-toggler-icon span {
+    background-color: #000000; /* Set the desired color for the bars */
+}
+

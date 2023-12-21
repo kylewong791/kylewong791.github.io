@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyle Wong</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link href="style_main.css" rel="stylesheet">
+
+    <!-- Me CSS -->
+    <link href="style_me.css" rel="stylesheet">
+    <!-- Navbar CSS -->
+    <link href="style_navbar.css" rel="stylesheet">
+    <!-- Projects CSS -->
+    <link href="style_projects.css" rel="stylesheet">
+    <!-- Contact CSS -->
+    <link href="style_contact.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#me">Kyle Wong's Portfolio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Me Section -->
+    <section id="me" class="full-height centered-section scroll-section fade-in">
+        <div class="me-container">
+            <div class="me-content">
+                <h1>KYLE WONG'S</h1>
+                <h2>PORTFOLIO</h2>
+            </div>
+            <img src="images/me.jpg" alt="Kyle Wong" class="me-image">
+            <div class="me-content">
+                <h3>Aspiring data scientist—using <span class="underline-text">real</span> data to solve <span class="underline-text">real</span> problems.</h3>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="full-height centered-section scroll-section" data-scroll="about">
+        <h2 class="centered-text section-title">About</h2>
+        <p class="centered-text">
+            Hey there! I'm Kyle, a current 4th-year at the University of California, Los Angeles (UCLA), majoring in 
+            Statistics & Data Science. I made this website just for fun, to show off my projects and learn more about web development. 
+            Outside of my academic/professional pursuits, I enjoy DJing, attending concerts and music 
+            festivals, and bowling!
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="full-height centered-section scroll-section" data-scroll="projects">
+        <h2 class="centered-text section-title">Projects</h2>
+        <div class="projects-container">
+
+            <!-- Predicting Alcoholic Status Using Person's Vitals -->
+            <div class="project-item" id="alcohol">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/alcohol.jpeg" alt="Alcohol">
+                        <h3>Predicting Alcoholic Status Using Person's Vitals</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>Dataset collected from the National Health Insurance Service in Korea; trained and tested in R</li>
+                            <li>Built several classification models including logistic regression, LDA, QDA, k-Nearest Neighbors, and 
+                                decision trees to best predict a person's alcoholic status</li>
+                            <li>Implemented cross-validation to prevent overfitting and to provide more realistic estimates on new, unseen data</li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1R5eu7fUqkYkn1-agJZLWKi1KGo1MSCXt/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                                Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- An Analysis of Juvenile Crime in Los Angeles -->
+            <div class="project-item" id="crime">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/crime.jpeg" alt="Crime">
+                        <h3>An Analysis of Juvenile Crime in Los Angeles</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>Local dataset from the Los Angeles Police Department, investigated in R</li>
+                            <li>Carried out EDA to determine differences in juvenile and adult criminal behaviors</li>
+                            <li>Conducted Pearson's chi-squared test to determine associations between locations of crimes committed</li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1o2T2v05JPmUKemVV3txB31Ho7CxoJo7s/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                                Poster</a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1OxDZ-gcYvAyaGQp5mMtGiLBEE2z_hb1J/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                                Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nicotine vs. Kava and Their Effects on Human Memory -->
+            <div class="project-item" id="humanMemory">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/memory.jpeg" alt="Human Memory">
+                        <h3>Nicotine vs. Kava and Their Effects on Human Memory</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>Designed and simulated experiment with virtual humans to test the effects of cigarettes and kava on their memory</li>
+                            <li>Collected data by web-scraping in R, with a two-way randomized block design to analyze using linear regression</li>
+                            <li>Visualized residual diagnostics, interaction plots, box plots, and ANOVA analysis to present final conclusions</li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1JfsT5nFp5DpC-nDz5WerzK6hkVrRJIR6/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                                Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Website -->
+            <div class="project-item" id="personalWebsite">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/personal_website.png" alt="Personal Website">
+                        <h3>Personal Website</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>End-to-end development of a responsive personal portfolio website, using HTML, CSS, and JavaScript</li>
+                            <li>Implemented a modern, user-friendly UI to ensure optimal user engagement and information accessibility</li>
+                            <li>Integrated Bootstrap framework to leverage its responsive grid system for efficient layout creation,
+                                along with jQuery for smooth scrolling and dynamic content manipulation</li>
+                            <li>
+                                Deployed on
+                                <a href="https://github.com/kylewong791/kylewong791.github.io" target="_blank" rel="noopener noreferrer">
+                                GitHub Pages</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Boston Housing Prices Analysis -->
+            <div class="project-item" id="bostonHousing">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/boston.jpeg" alt="Boston Housing">
+                        <h3>Boston Housing Prices Analysis</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>Dataset from homes within Boston, written in Python</li>
+                            <li>Carried out EDA using NumPy, Scikit-learn, Seaborn, Pandas, and Matplotlib</li>
+                            <li>Implemented linear regression to train a data model, calculating the correlation between 
+                                actual and predicted home prices to determine whether the prices of homes in Boston related to the demand for clean air </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Twitter Bot -->
+            <div class="project-item" id="twitterBot">
+                <div class="card">
+                    <div class="card-front">
+                        <img src="images/twitter.jpeg" alt="Twitter Bot">
+                        <h3>Twitter Bot</h3>
+                        <div class="details">View Details</div>
+                    </div>
+                    <div class="card-back">
+                        <ul>
+                            <li>Implemented the Python library, Tweepy, to access the Twitter API in order to interact with different endpoints 
+                                of Twitter, built to understand conversation on Twitter</li>
+                            <li>Utilized Twitter's Developer Platform to access developer tokens and authenticate tasks performed by the bot with OAuth 2.0</li>
+                            <li>Deployed over the cloud using PythonAnywhere</li>
+                            <li>
+                                <a href="https://github.com/kylewong791/MinionTwitterBot" target="_blank" rel="noopener noreferrer">
+                                Code</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="full-height centered-section scroll-section" data-scroll="contact">
+        <h2 class="centered-text section-title">Contact</h2>
+        
+        <!-- Icons Container -->
+        <div class="icons-container">
+            <!-- Email Icon -->
+            <a href="mailto:kylewong791@ucla.edu">
+                <img src="images/email.svg" alt="Email Icon">
+            </a>
+
+            <!-- LinkedIn Icon -->
+            <a href="https://www.linkedin.com/in/kylewong791" target="_blank" rel="noopener noreferrer">
+                <img src="images/linkedin.svg" alt="LinkedIn Icon">
+            </a>
+
+            <!-- Github Icon -->
+            <a href="https://github.com/kylewong791" target="_blank" rel="noopener noreferrer">
+                <img src="images/github.svg" alt="Github Icon">
+            </a>
+        </div>
+    </section>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap JavaScript bundle CDN (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <script src="main.js"></script>
+
+    
+</body>
+</html>

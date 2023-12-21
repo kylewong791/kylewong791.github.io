@@ -1,0 +1,92 @@
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.project-item {
+    perspective: 1000px;
+    width: 300px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed */
+    margin: 10px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card:hover {
+    transform: scale(1.08); /*1.05 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.card-front {
+    background: #fff; /* Or any preferred color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.card-front img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for all images */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card-front h3 {
+    font-size: 1.4em; /* Adjust as needed */
+    margin: 0;
+    color: #333; /* Adjust as needed */
+    margin-bottom: 15px;
+}
+
+.card-back {
+    background: #fff; /* Adjust as needed */
+    transform: rotateY(180deg);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    text-align: left; /* Optional, for better text alignment */
+    margin-top: 10px;
+}
+
+
+.details {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #bcbabf;
+    font-size: 12px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+#projects h2{
+    margin-top: 40px;
+}

@@ -1,0 +1,20 @@
+#contact p {
+    margin: 0;
+    font-size: 28px;
+}
+
+.icons-container {
+    display: flex;
+    justify-content: space-around; /* You can use 'space-between' for more space between icons */
+    align-items: center; /* Align icons vertically in the middle */
+    margin-top: 15px;
+}
+
+.icons-container a {
+    margin: 0 10px; /* Adjust the margin between icons */
+}
+
+.icons-container img {
+    width: 30px; /* Adjust the width of the icons */
+    height: 30px; /* Adjust the height of the icons */
+}
