@@ -65,7 +65,7 @@
 
 .card-back {
     background: #fff; /* Adjust as needed */
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(1px); /* Small translateZ value */
     padding: 20px;
     box-sizing: border-box;
     display: flex;
