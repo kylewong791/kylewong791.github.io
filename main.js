@@ -40,17 +40,13 @@ $(document).ready(function () {
 
 // Fade in/out
 $(document).ready(function() {
-    // Function to check if an element is in the viewport
-    function isElementInView(element) {
-        var elementTop = $(element).offset().top;
-        var elementBottom = elementTop + $(element).outerHeight();
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop + $(window).height();
-        return elementBottom > viewportTop && elementTop < viewportBottom;
-    }
+    checkVisibilityAndUpdate();
 
-    // Check for visibility of each section on scroll
     $(window).on('scroll', function() {
+        checkVisibilityAndUpdate();
+    });
+
+    function checkVisibilityAndUpdate() {
         $('.scroll-section').each(function() {
             if (isElementInView(this)) {
                 $(this).addClass('in-view');
@@ -58,8 +54,17 @@ $(document).ready(function() {
                 $(this).removeClass('in-view');
             }
         });
-    });
+    }
+
+    function isElementInView(element) {
+        var elementTop = $(element).offset().top;
+        var elementBottom = elementTop + $(element).outerHeight();
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    }
 });
+
 
 
 // Flip "cards"
