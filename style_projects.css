@@ -70,12 +70,17 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: #333;
     text-align: left; /* Optional, for better text alignment */
     margin-top: 10px;
+    overflow-y: auto; /* Enables vertical scrolling */
+    position: absolute;
+    top: 0;
 }
+
+
 
 
 .details {
