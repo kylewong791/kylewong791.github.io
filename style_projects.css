@@ -2,8 +2,9 @@
     width: 100%;
     padding: 20px 0; /* Add some padding for top and bottom */
     box-sizing: border-box;
-    max-width: 100%; /* Ensure the section takes full width */
-    margin: 0; /* Remove any margin */
+    max-width: 1200px; /* Set a maximum width for the section */
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
 }
 
 .projects-container {
@@ -13,20 +14,22 @@
     width: 100%;
     max-width: 1200px; /* Set a maximum width for the container */
     box-sizing: border-box; /* Include padding and border in element's total width and height */
-    padding: 0 20px; /* Restore some padding around the container */
-    margin: 0 auto; /* Center the container */
     justify-content: center; /* Center the grid items */
+    padding: 20px; /* Restore some padding around the container */
 }
-
-
 
 .project-item {
     perspective: 1000px;
     width: 100%; /* Ensure it takes the full width of the grid cell */
     max-width: 300px; /* Set a maximum width for the cards */
     height: 450px; /* Adjust height to make it slightly longer vertically */
-    margin: 10px; /* Restore some margin for spacing */
+    margin: 0; /* Remove individual margins to prevent overflow */
+    display: flex;
+    justify-content: center; /* Center the card horizontally */
+    align-items: center; /* Center the card vertically */
 }
+
+
 
 .card {
     width: 100%;
@@ -108,7 +111,7 @@
 .card-back ul li {
     margin-bottom: 3px; /* Add some space between list items */
     padding-left: 15px; /* Adjust padding to align wrapped text */
-    text-indent: -23px; /* Negative indent to pull the first line back */
+    text-indent: -15px; /* Negative indent to pull the first line back */
 }
 
 .details {
@@ -127,7 +130,7 @@
     margin-top: 40px;
 }
 
-/* For smaller screens (e.g., tablets) */
+/* For tablets and smaller screens */
 @media (max-width: 1024px) {
     .projects-container {
         grid-template-columns: repeat(2, 1fr); /* 2 projects per row */
@@ -138,5 +141,11 @@
 @media (max-width: 768px) {
     .projects-container {
         grid-template-columns: 1fr; /* 1 project per row */
+        justify-content: center; /* Center the grid items */
+        padding: 0 10px; /* Reduce padding for mobile */
+    }
+
+    .project-item {
+        margin: 10px auto; /* Center individual cards */
     }
 }
