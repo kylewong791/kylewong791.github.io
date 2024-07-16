@@ -1,21 +1,31 @@
 #projects {
     width: 100%;
-    padding: 20px; /* Add some padding if needed */
+    padding: 20px 0; /* Add some padding for top and bottom */
     box-sizing: border-box;
+    max-width: 100%; /* Ensure the section takes full width */
+    margin: 0; /* Remove any margin */
 }
 
 .projects-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 projects per row by default */
+    grid-template-columns: repeat(4, 1fr); /* 4 projects per row */
     gap: 20px; /* Adjust spacing between items */
-    width: 100%; /* Ensure it takes the full width */
+    width: 100%;
+    max-width: 1200px; /* Set a maximum width for the container */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    padding: 0 20px; /* Restore some padding around the container */
+    margin: 0 auto; /* Center the container */
+    justify-content: center; /* Center the grid items */
 }
+
+
 
 .project-item {
     perspective: 1000px;
     width: 100%; /* Ensure it takes the full width of the grid cell */
-    height: 400px; /* Maintain card height */
-    margin: 10px;
+    max-width: 300px; /* Set a maximum width for the cards */
+    height: 450px; /* Adjust height to make it slightly longer vertically */
+    margin: 10px; /* Restore some margin for spacing */
 }
 
 .card {
@@ -28,6 +38,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 20px; /* Restore some padding inside the card */
 }
 
 .card-front, .card-back {
@@ -62,7 +73,7 @@
 }
 
 .card-front h3 {
-    font-size: 1.2em;
+    font-size: 1.4em;
     margin: 0;
     color: #333;
     margin-bottom: 15px;
