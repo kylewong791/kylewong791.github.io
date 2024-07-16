@@ -1,13 +1,20 @@
+#projects {
+    width: 100%;
+    padding: 20px; /* Add some padding if needed */
+    box-sizing: border-box;
+}
+
 .projects-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 projects per row by default */
+    gap: 20px; /* Adjust spacing between items */
+    width: 100%; /* Ensure it takes the full width */
 }
 
 .project-item {
     perspective: 1000px;
-    width: 300px; /* Adjust as needed */
-    height: 400px; /* Adjust as needed */
+    width: 100%; /* Ensure it takes the full width of the grid cell */
+    height: 400px; /* Maintain card height */
     margin: 10px;
 }
 
@@ -15,21 +22,18 @@
     width: 100%;
     height: 100%;
     transition: transform 0.6s, box-shadow 0.3s;
-    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     position: relative;
-}
-
-.card:hover {
-    transform: scale(1.08); /*1.05 */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-front, .card-back {
     width: 100%;
     height: 100%;
     transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: absolute;
     top: 0;
@@ -38,7 +42,7 @@
 }
 
 .card-front {
-    background: #fff; /* Or any preferred color */
+    background: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,35 +57,48 @@
     height: 200px; /* Set a fixed height for all images */
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .card-front h3 {
-    font-size: 1.4em; /* Adjust as needed */
+    font-size: 1.2em;
     margin: 0;
-    color: #333; /* Adjust as needed */
+    color: #333;
     margin-bottom: 15px;
 }
 
 .card-back {
-    background: #fff; /* Adjust as needed */
-    transform: rotateY(180deg) translateZ(1px); /* Small translateZ value */
-    padding: 20px;
+    background: #fff;
+    transform: rotateY(180deg);
+    padding: 10px; /* Decrease padding to allow more text */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start; /* Align items to the left */
     color: #333;
-    text-align: left; /* Optional, for better text alignment */
-    margin-top: 10px;
-    overflow-y: auto; /* Enables vertical scrolling */
+    text-align: left;
+    overflow-y: auto;
     position: absolute;
     top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0; /* Ensure no extra margin is applied */
 }
 
+.card-back ul {
+    padding-left: 5px; /* Adjust as needed to push bullet points to the left */
+    margin: 0;
+    list-style-position: inside; /* Ensure bullet points are inside the list item box */
+}
 
-
+.card-back ul li {
+    margin-bottom: 3px; /* Add some space between list items */
+    padding-left: 15px; /* Adjust padding to align wrapped text */
+    text-indent: -23px; /* Negative indent to pull the first line back */
+}
 
 .details {
     position: absolute;
@@ -95,6 +112,20 @@
     transform: rotateY(180deg);
 }
 
-#projects h2{
+#projects h2 {
     margin-top: 40px;
+}
+
+/* For smaller screens (e.g., tablets) */
+@media (max-width: 1024px) {
+    .projects-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 projects per row */
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 768px) {
+    .projects-container {
+        grid-template-columns: 1fr; /* 1 project per row */
+    }
 }
