@@ -732,3 +732,55 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
+
+
+/* =============================================================
+   13. SPOTIFY WIDGET
+   Fetches live now-playing data on load and every 30 seconds.
+   ============================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+  const widget   = document.querySelector('.spotify-widget');
+  if (!widget) return;
+
+  const trackEl  = widget.querySelector('.spotify-track');
+  const artistEl = widget.querySelector('.spotify-artist');
+  const labelEl  = widget.querySelector('.spotify-label');
+  const artEl    = widget.querySelector('.album-art');
+  const barsEl   = widget.querySelector('.s-bars');
+
+  function update(data) {
+    if (data && data.isPlaying) {
+      labelEl.textContent  = 'Listening to';
+      trackEl.textContent  = data.title  || '';
+      artistEl.textContent = data.artist || '';
+      barsEl.classList.remove('paused');
+      widget.classList.remove('not-playing');
+
+      if (data.albumArt) {
+        artEl.style.backgroundImage = `url(${data.albumArt})`;
+        artEl.classList.add('has-art');
+      } else {
+        artEl.style.backgroundImage = '';
+        artEl.classList.remove('has-art');
+      }
+    } else {
+      labelEl.textContent  = 'Last seen';
+      trackEl.textContent  = 'Not playing';
+      artistEl.textContent = '';
+      barsEl.classList.add('paused');
+      widget.classList.add('not-playing');
+      artEl.style.backgroundImage = '';
+      artEl.classList.remove('has-art');
+    }
+  }
+
+  function fetchNowPlaying() {
+    fetch('https://spotify-now-playing-dun-alpha.vercel.app/api/now-playing')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => update(data))
+      .catch(() => update(null));
+  }
+
+  fetchNowPlaying();
+  setInterval(fetchNowPlaying, 30000);
+});

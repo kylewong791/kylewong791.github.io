@@ -802,6 +802,22 @@ body.dark .toggle-pill {
   50%       { transform: scaleY(1);   }
 }
 
+/* Paused state — bars freeze at low opacity */
+.s-bars.paused .s-bar {
+  animation-play-state: paused;
+  opacity: 0.3;
+}
+
+/* Album art loaded state */
+.album-art.has-art {
+  background-size: cover;
+  background-position: center;
+}
+
+.album-art.has-art svg {
+  display: none;
+}
+
 
 /* =============================================================
    11. PROJECTS SECTION
