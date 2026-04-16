@@ -6,24 +6,30 @@
 
 /* -------------------------------------------------------------
    1. NEURAL NETWORK CANVAS ANIMATION
-   32 nodes float around the hero section, drawing connecting
-   lines to any other node within 120px. Color is read from
-   --accent-r/g/b CSS variables so it updates with dark mode.
+   50 nodes float around the hero section, drawing connecting
+   lines to any other node within 120px. Nodes are gently
+   repelled from the cursor. Color is read from --accent-r/g/b
+   CSS variables so it updates with dark mode automatically.
    ------------------------------------------------------------- */
 (function initCanvas() {
   const canvas = document.getElementById('neural-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const NODE_COUNT      = 32;
-  const CONNECT_DIST    = 120;   // px — max distance to draw a line
-  const NODE_OPACITY    = 0.28;
+  const NODE_COUNT       = 50;
+  const CONNECT_DIST     = 120;   // px — max distance to draw a line
+  const NODE_OPACITY     = 0.28;
   const LINE_OPACITY_MAX = 0.18;
-  const NODE_RADIUS     = 2.2;
-  const SPEED_RANGE     = 0.45;  // max px per frame in each axis
+  const RADIUS_MIN       = 2;     // px
+  const RADIUS_MAX       = 4;     // px
+  const SPEED_RANGE      = 0.55;  // max px per frame in each axis
+  const REPEL_DIST       = 120;   // px — mouse repulsion radius
+  const REPEL_STRENGTH   = 0.3;   // acceleration added per frame at closest point
+  const SPEED_CAP        = SPEED_RANGE * 4; // max speed after repulsion boost
 
   let nodes = [];
   let raf;
+  const mouse = { x: -9999, y: -9999 };
 
   /* Read the current accent RGB from CSS custom properties */
   function getAccentRGB() {
@@ -40,15 +46,16 @@
     canvas.height = canvas.offsetHeight;
   }
 
-  /* Build the initial node array */
+  /* Build the initial node array — each node gets its own random radius */
   function buildNodes() {
     nodes = [];
     for (let i = 0; i < NODE_COUNT; i++) {
       nodes.push({
-        x:  Math.random() * canvas.width,
-        y:  Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * SPEED_RANGE * 2,
-        vy: (Math.random() - 0.5) * SPEED_RANGE * 2,
+        x:      Math.random() * canvas.width,
+        y:      Math.random() * canvas.height,
+        vx:     (Math.random() - 0.5) * SPEED_RANGE * 2,
+        vy:     (Math.random() - 0.5) * SPEED_RANGE * 2,
+        radius: RADIUS_MIN + Math.random() * (RADIUS_MAX - RADIUS_MIN),
       });
     }
   }
@@ -61,8 +68,25 @@
 
     ctx.clearRect(0, 0, w, h);
 
-    /* Move and bounce nodes */
+    /* Move, apply mouse repulsion, and bounce nodes */
     for (const node of nodes) {
+      /* Gentle repulsion — accelerate away from cursor proportional to proximity */
+      const mdx   = node.x - mouse.x;
+      const mdy   = node.y - mouse.y;
+      const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+      if (mdist < REPEL_DIST && mdist > 0) {
+        const force = REPEL_STRENGTH * (1 - mdist / REPEL_DIST);
+        node.vx += (mdx / mdist) * force;
+        node.vy += (mdy / mdist) * force;
+
+        /* Cap speed so repulsion can't fling nodes off screen */
+        const speed = Math.sqrt(node.vx * node.vx + node.vy * node.vy);
+        if (speed > SPEED_CAP) {
+          node.vx = (node.vx / speed) * SPEED_CAP;
+          node.vy = (node.vy / speed) * SPEED_CAP;
+        }
+      }
+
       node.x += node.vx;
       node.y += node.vy;
 
@@ -93,7 +117,7 @@
     /* Draw nodes on top of lines */
     for (const node of nodes) {
       ctx.beginPath();
-      ctx.arc(node.x, node.y, NODE_RADIUS, 0, Math.PI * 2);
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${NODE_OPACITY})`;
       ctx.fill();
     }
@@ -108,6 +132,18 @@
     cancelAnimationFrame(raf);
     draw();
   }
+
+  /* Track mouse position relative to the canvas */
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
 
   /* Rebuild on window resize — debounced to avoid thrash */
   let resizeTimer;
@@ -673,3 +709,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+/* =============================================================
+   12. BACK TO TOP BUTTON
+   Shows after scrolling 400px down; hides when back near top.
+   Click smoothly scrolls to the top of the page.
+   ============================================================= */
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
