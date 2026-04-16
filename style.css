@@ -1207,20 +1207,7 @@ body.dark .toggle-pill {
 
 
 /* =============================================================
-   16. NAV SCROLL FADE
-   Applied to target sections during scroll-to navigation.
-   ============================================================= */
-.section-fade {
-  transition: opacity 0.3s ease;
-}
-
-.section-fade.fading {
-  opacity: 0.4;
-}
-
-
-/* =============================================================
-   17. BACK TO TOP BUTTON
+   16. BACK TO TOP BUTTON
    ============================================================= */
 #back-to-top {
   position: fixed;

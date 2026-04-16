@@ -648,27 +648,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* =============================================================
-   10. SMOOTH SCROLL WITH SECTION FADE
-   Nav anchor links and hero CTA buttons fade the target section
-   briefly, scroll into view, then fade back in.
+   10. SMOOTH SCROLL
+   Nav anchor links and hero CTA buttons use scrollIntoView
+   instead of the default instant jump.
    ============================================================= */
 document.addEventListener('DOMContentLoaded', () => {
-
-  /* Dim target, scroll, un-dim */
-  function fadeScrollTo(target) {
-    target.classList.add('section-fade', 'fading');
-    setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => target.classList.remove('fading'), 300);
-    }, 150);
-  }
-
   /* Nav links */
   document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector(link.getAttribute('href'));
-      if (target) fadeScrollTo(target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
@@ -680,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctaProjects.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector('#projects');
-      if (target) fadeScrollTo(target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -688,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctaContact.addEventListener('click', e => {
       e.preventDefault();
       const target = document.querySelector('#contact');
-      if (target) fadeScrollTo(target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 });
