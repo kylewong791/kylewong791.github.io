@@ -750,25 +750,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function update(data) {
     if (data && data.isPlaying) {
+      /* Currently playing */
       labelEl.textContent  = 'Listening to';
       trackEl.textContent  = data.title  || '';
       artistEl.textContent = data.artist || '';
       barsEl.classList.remove('paused');
       widget.classList.remove('not-playing');
-
-      if (data.albumArt) {
-        artEl.style.backgroundImage = `url(${data.albumArt})`;
-        artEl.classList.add('has-art');
-      } else {
-        artEl.style.backgroundImage = '';
-        artEl.classList.remove('has-art');
-      }
+    } else if (data && data.title) {
+      /* Not playing but recently played track available */
+      labelEl.textContent  = 'Last listened to';
+      trackEl.textContent  = data.title;
+      artistEl.textContent = data.artist || '';
+      barsEl.classList.add('paused');
+      widget.classList.remove('not-playing');
     } else {
-      labelEl.textContent  = 'Last seen';
+      /* No data at all */
+      labelEl.textContent  = 'Listening to';
       trackEl.textContent  = 'Not playing';
       artistEl.textContent = '';
       barsEl.classList.add('paused');
       widget.classList.add('not-playing');
+    }
+
+    /* Album art — shared across all states */
+    if (data && data.albumArt) {
+      artEl.style.backgroundImage = `url(${data.albumArt})`;
+      artEl.classList.add('has-art');
+    } else {
       artEl.style.backgroundImage = '';
       artEl.classList.remove('has-art');
     }
