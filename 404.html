@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Kyle Wong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2216%22 fill=%22%23C84B0F%22/><text x=%2250%22 y=%2266%22 font-family=%22system-ui,sans-serif%22 font-size=%2246%22 font-weight=%22500%22 fill=%22%23FAF8F4%22 text-anchor=%22middle%22>KW</text></svg>'/>
+  <style>
+    /* Fill the viewport below the 58px nav, center content */
+    #page-404 {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 58px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #neural-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .not-found-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 0.75rem;
+    }
+
+    .not-found-code {
+      font-size: 80px;
+      font-weight: 500;
+      line-height: 1;
+      color: var(--accent);
+      margin: 0;
+      transition: color 0.35s ease;
+    }
+
+    .not-found-heading {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      margin: 0;
+      transition: color 0.35s ease;
+    }
+
+    .not-found-desc {
+      font-size: 13px;
+      color: var(--text2);
+      max-width: 380px;
+      margin: 0;
+      line-height: 1.65;
+      transition: color 0.35s ease;
+    }
+
+    .not-found-content .btn-primary {
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Kyle Wong</a>
+      <div class="nav-menu">
+        <div class="nav-links">
+          <a href="index.html#about">About</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#contact">Contact</a>
+          <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Dark</span>
+          </button>
+        </div>
+      </div>
+      <button id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== 404 ===================== -->
+  <main id="page-404">
+    <canvas id="neural-canvas"></canvas>
+    <div class="not-found-content">
+      <p class="not-found-code">404</p>
+      <h2 class="not-found-heading">Null pointer exception.</h2>
+      <p class="not-found-desc">Even the best models hit edge cases. This page doesn't exist — but my portfolio does.</p>
+      <a href="index.html" class="btn-primary">Back to the portfolio</a>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
