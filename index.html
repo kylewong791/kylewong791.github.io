@@ -1,333 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyle Wong's Portfolio</title>
-
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Main CSS -->
-    <link href="style_main.css" rel="stylesheet">
-
-    <!-- Me CSS -->
-    <link href="style_me.css" rel="stylesheet">
-    <!-- Navbar CSS -->
-    <link href="style_navbar.css" rel="stylesheet">
-    <!-- Projects CSS -->
-    <link href="style_projects.css" rel="stylesheet">
-    <!-- Contact CSS -->
-    <link href="style_contact.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyle Wong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel='icon' href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2216%22 fill=%22%23C84B0F%22/><text x=%2250%22 y=%2266%22 font-family=%22system-ui,sans-serif%22 font-size=%2246%22 font-weight=%22500%22 fill=%22%23FAF8F4%22 text-anchor=%22middle%22>KW</text></svg>'/>
 </head>
-
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#me">Kyle Wong's Portfolio</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
+
+  <!-- Scroll progress bar -->
+  <div id="progress-bar"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Kyle Wong</a>
+      <div class="nav-menu">
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+          <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="toggle-pill"></span>
+            <span class="toggle-label">Dark</span>
+          </button>
         </div>
-    </nav>
+      </div>
+      <button id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-    <!-- Me Section -->
-    <section id="me" class="full-height centered-section scroll-section fade-in">
-        <div class="me-container">
-            <div class="me-content">
-                <h1>KYLE WONG'S</h1>
-                <h2>PORTFOLIO</h2>
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <canvas id="neural-canvas"></canvas>
+    <div class="hero-content">
+      <p class="eyebrow">Hey! Welcome to my page.</p>
+      <h1>
+        <span id="typewriter"></span><span class="cursor"></span>
+      </h1>
+      <p class="hero-desc">I'm Kyle! I work at the intersection of data, AI systems, and the humans who use them.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">View projects</a>
+        <a href="#contact" class="btn-secondary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+
+        <!-- Left column -->
+        <div class="about-left reveal">
+          <p class="eyebrow">About</p>
+          <h2>A bit about me</h2>
+          <div class="about-photo-wrap">
+            <img src="images/me.jpg" alt="Kyle Wong" class="about-photo">
+          </div>
+
+          <!-- Spotify widget (static placeholder) -->
+          <div class="spotify-widget">
+            <div class="spotify-art"></div>
+            <div class="spotify-text">
+              <span class="spotify-label">Listening to</span>
+              <span class="spotify-track">Not currently playing</span>
+              <span class="spotify-artist"></span>
             </div>
-            <img src="images/me.jpeg" alt="Kyle Wong" class="me-image">
-            <div class="me-content">
-                <h3>Recent UCLA Graduate in Statistics and Data Science</h3>
+            <div class="spotify-bars">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
+          </div>
         </div>
-    </section>
 
-
-    <!-- About Section -->
-    <section id="about" class="full-height centered-section scroll-section" data-scroll="about">
-        <h2 class="centered-text section-title">About</h2>
-        <p class="centered-text">
-            Hey there! I'm Kyle, a Statistics & Data Science new grad from the University of California, Los Angeles (UCLA). 
-            I made this website just for fun, to show off my projects and learn more about web development. 
-            Outside of my academic/professional pursuits, I enjoy DJing, attending concerts and music 
-            festivals, and bowling!
-        </p>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="full-height centered-section scroll-section" data-scroll="projects">
-        <h2 class="centered-text section-title">Projects</h2>
-        <div class="projects-container">
-
-            <!-- Vision Clarity and Comorbidity: A Statistical Consulting Case Study -->
-            <div class="project-item" id="vision">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/vision.jpeg" alt="Vision">
-                        <h3>Vision Clarity and Comorbidity: A Statistical Consulting Case Study</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1MdxVf1MUYEafCVJ1NXV2BAmq_htOqwGE/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Report</a>
-                            </li>
-                            <li>
-                                Collaborated with ophthalmologists
-                                <a href="https://www.uclahealth.org/providers/daniel-rootman" target="_blank" rel="noopener noreferrer">Dr. Daniel B. Rootman</a>
-                                and
-                                <a href="https://www.uclahealth.org/providers/robert-goldberg" target="_blank" rel="noopener noreferrer">Dr. Robert A. Goldberg</a>
-                                to analyze factors influencing blurry 
-                                vision through logistic regression and odds ratio analysis to ensure the clinical relevance of findings
-                            </li>
-                            <li>Conducted comprehensive evaluations using logistic regressions, marginal models, ROC curves, and mean plots</li>
-                            <li>Delivered key findings to enhance medical understanding and critically question existing ophthalmologic research</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- COVIDUCATION: COVID-19’s Impact on Education -->
-            <div class="project-item" id="education">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/covid.jpeg" alt="Covid">
-                        <h3>COVIDUCATION: COVID-19's Impact on Education</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://coviducation.humspace.ucla.edu/" target="_blank" rel="noopener noreferrer">Website</a>
-                            </li>
-                            <li>
-                                Collaborated with a team to analyze pre- and post-pandemic test scores from U.S. school districts to assess the impact 
-                                of socioeconomic factors and state policies on education, using data from the Stanford Education Data Archive
-                            </li>
-                            <li>Managed and maintained a website showcasing COVID-19's impact on education, ensuring user accessibility</li>
-                            <li>Reduced ontological biases in data analysis, clarifying pandemic impacts on educational disparities to guide policy</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Predicting Alcoholic Status Using Person's Vitals -->
-            <div class="project-item" id="alcohol">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/alcohol.jpeg" alt="Alcohol">
-                        <h3>Predicting Alcoholic Status Using Person's Vitals</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1R5eu7fUqkYkn1-agJZLWKi1KGo1MSCXt/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Report</a>
-                            </li>
-                            <li>
-                                Utilized and analyzed a dataset from Korea's National Health Insurance Service in R,
-                                effectively developing classification models (logistic regression, LDA, QDA, k-NN, and decision trees) 
-                                to accurately predict alcoholic status
-                            </li>
-                            <li>Implemented cross-validation methods to mitigate overfitting, ensuring accurate predictions on new, unseen data</li>
-                            <li>Incorporated imputation techniques to enhance data quality to improve model performance and predictive accuracy</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Evaluating Experimental Designs for Hyperparameter Tuning in Deep Neural Networks -->
-            <div class="project-item" id="mnist">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/mnist.jpeg" alt="mnist">
-                        <h3>Evaluating Experimental Designs for Hyperparameter Tuning in Deep Neural Networks</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1CYZZ6kL43Fk4zh-kJRWCYH1Zqjw0hEsX/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Presentation</a>
-                            </li>
-                            <li>Evaluated experimental designs for hyperparameter tuning in deep neural networks using the Fashion MNIST dataset, achieving up to 87.3% accuracy</li>
-                            <li>Conducted comparative analysis of Factorial, Random, Latin Hypercube, Maximin LHD, and Optimum LHD designs, 
-                                identifying the Latin Hypercube Design as the most effective for six hyperparameters with an accuracy of 82.6%</li>
-                            <li>Improved predictive accuracy and computational efficiency by utilizing linear regression and Kriging surrogate models, 
-                                reducing Root Mean Squared Error (RMSE) to as low as 0.0105</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- An Analysis of Juvenile Crime in Los Angeles -->
-            <div class="project-item" id="crime">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/crime.jpeg" alt="Crime">
-                        <h3>An Analysis of Juvenile Crime in Los Angeles</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1OxDZ-gcYvAyaGQp5mMtGiLBEE2z_hb1J/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Report</a>
-                            </li>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1o2T2v05JPmUKemVV3txB31Ho7CxoJo7s/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Poster</a>
-                            </li>
-                            <li>Analyzed LAPD dataset in R, conducting EDA to highlight differences and patterns in juvenile vs. adult crimes</li>
-                            <li>Applied Pearson's chi-squared test to reveal significant associations and trends in crime locations and age groups</li>
-                            <li>Identified that 13% of LA juvenile crimes involve firearms, double the adult rate, highlighting greater arrest risks</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nicotine vs. Kava and Their Effects on Human Memory -->
-            <div class="project-item" id="humanMemory">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/memory.jpeg" alt="Human Memory">
-                        <h3>Nicotine vs. Kava and Their Effects on Human Memory</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://drive.google.com/file/d/1JfsT5nFp5DpC-nDz5WerzK6hkVrRJIR6/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                                Report</a>
-                            </li>
-                            <li>Constructed virtual experiments to accurately simulate and assess the impacts of nicotine and kava on human memory</li>
-                            <li>Employed web-scraping in R for data collection, applying a 2-way randomized block design and linear regression</li>
-                            <li>Visualized results by graphing residual diagnostics, interaction plots, box plots, and conducting ANOVA analysis</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Personal Website -->
-            <div class="project-item" id="personalWebsite">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/personal_website.png" alt="Personal Website">
-                        <h3>Personal Website</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                Deployed on
-                                <a href="https://github.com/kylewong791/kylewong791.github.io" target="_blank" rel="noopener noreferrer">
-                                GitHub Pages</a>
-                            </li>
-                            <li>Designed and executed the end-to-end development of a modern, user-friendly, and responsive portfolio website</li>
-                            <li>Utilized HTML, CSS, and JavaScript to create a website with optimal user engagement and information accessibility</li>
-                            <li>Integrated Bootstrap for responsive design and jQuery for dynamic content manipulation, deployed on GitHub Pages</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Boston Housing Prices Analysis -->
-            <div class="project-item" id="bostonHousing">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/boston.jpeg" alt="Boston Housing">
-                        <h3>Boston Housing Prices Analysis</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>Collaborative project analyzing Boston housing data, employing EDA with NumPy, Pandas, Seaborn, and Matplotlib</li>
-                            <li>Developed a model predicting home prices, highlighting the relation between property values and clean air demand</li>
-                            <li>Validated model accuracy against historical data, providing actionable insights for urban planning initiatives</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Twitter Bot -->
-            <div class="project-item" id="twitterBot">
-                <div class="card">
-                    <div class="card-front">
-                        <img src="images/twitter.jpeg" alt="Twitter Bot">
-                        <h3>Twitter Bot</h3>
-                        <div class="details">View Details</div>
-                    </div>
-                    <div class="card-back">
-                        <ul>
-                            <li>
-                                <a href="https://github.com/kylewong791/MinionTwitterBot" target="_blank" rel="noopener noreferrer">
-                                Code</a>
-                            </li>
-                            <li>Leveraged the Tweepy Python library to interact with Twitter API, using Twitter endpoints to analyze conversations</li>
-                            <li>Utilized Twitter's Developer Platform and OAuth 2.0 to access developer tokens and authenticate tasks performed</li>
-                            <li>Deployed on PythonAnywhere, ensuring continuous cloud-based functionality for optimal performance</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Right column -->
+        <div class="about-right reveal d1">
+          <p>I'm a Statistics and Data Science grad from UCLA. I'm drawn to work where analytical rigor meets real-world stakes. I care about understanding how systems behave, finding where things go wrong, and making sense of it in a way that actually helps.</p>
+          <p>Currently doing AI research, thinking a lot about how models reason and where they fall short.</p>
+          <p>Outside of work: DJing, concerts, music festivals, and bowling.</p>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">R</span>
+            <span class="tag">SQL</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">Keras</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">Machine learning</span>
+            <span class="tag">Statistical analysis</span>
+            <span class="tag">Data visualization</span>
+            <span class="tag">EDA</span>
+          </div>
         </div>
-    </section>
 
+      </div>
+    </div>
+  </section>
 
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="projects-header reveal">
+        <p class="eyebrow">Selected work</p>
+        <h2>Projects</h2>
+      </div>
+      <!-- Grid rendered dynamically by script.js -->
+      <div id="projects-grid"></div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="full-height centered-section scroll-section" data-scroll="contact">
-        <h2 class="centered-text section-title">Contact</h2>
-        
-        <!-- Icons Container -->
-        <div class="icons-container">
-            <!-- Email Icon -->
-            <a href="mailto:kylewong791@ucla.edu">
-                <img src="images/email.svg" alt="Email Icon">
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+
+        <!-- Left -->
+        <div class="contact-left reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Let's connect</h2>
+          <p>Always happy to chat. Feel free to reach out.</p>
+        </div>
+
+        <!-- Right: warm contact block -->
+        <div class="contact-right reveal d1">
+          <div class="contact-block">
+            <a href="mailto:kylewong.cv@gmail.com" class="contact-row">
+              <div class="contact-row-info">
+                <span class="contact-name">Email</span>
+                <span class="contact-handle">kylewong.cv@gmail.com</span>
+              </div>
+              <span class="contact-arrow">&#8599;</span>
             </a>
-
-            <!-- LinkedIn Icon -->
-            <a href="https://www.linkedin.com/in/kylewong791" target="_blank" rel="noopener noreferrer">
-                <img src="images/linkedin.svg" alt="LinkedIn Icon">
+            <a href="https://www.linkedin.com/in/kylewong791" target="_blank" rel="noopener noreferrer" class="contact-row">
+              <div class="contact-row-info">
+                <span class="contact-name">LinkedIn</span>
+                <span class="contact-handle">linkedin.com/in/kylewong791</span>
+              </div>
+              <span class="contact-arrow">&#8599;</span>
             </a>
-
-            <!-- Github Icon -->
-            <a href="https://github.com/kylewong791" target="_blank" rel="noopener noreferrer">
-                <img src="images/github.svg" alt="Github Icon">
+            <a href="https://github.com/kylewong791" target="_blank" rel="noopener noreferrer" class="contact-row">
+              <div class="contact-row-info">
+                <span class="contact-name">GitHub</span>
+                <span class="contact-handle">github.com/kylewong791</span>
+              </div>
+              <span class="contact-arrow">&#8599;</span>
             </a>
+          </div>
         </div>
-    </section>
 
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      </div>
+    </div>
+  </section>
 
-    <!-- Bootstrap JavaScript bundle CDN (includes Popper.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
-    <script src="main.js"></script>
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="footer">
+    <div class="section-inner">
+      <span>Kyle Wong</span>
+    </div>
+  </footer>
 
-    
+  <script src="script.js"></script>
 </body>
 </html>

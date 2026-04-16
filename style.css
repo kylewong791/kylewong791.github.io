@@ -1,0 +1,1371 @@
+/* =============================================================
+   style.css — Kyle Wong Portfolio
+   Step 2: CSS variables, reset, base typography
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. CSS CUSTOM PROPERTIES — LIGHT MODE (default)
+   ------------------------------------------------------------- */
+:root {
+  /* Background tiers */
+  --bg:       #FAF8F4;
+  --bg2:      #F0E8DC;
+  --bg3:      #E8DDD0;
+
+  /* Text tiers */
+  --text:     #1A1A1A;
+  --text2:    #555555;
+  --text3:    #888888;
+
+  /* Borders */
+  --border:   #E0DAD0;
+  --border2:  #D8D2C8;
+
+  /* Accent */
+  --accent:       #C84B0F;
+  --accent-light: #FDEEE5;
+  --accent-dark:  #A83A09;
+
+  /* Accent as raw RGB channels (used by canvas animation) */
+  --accent-r: 200;
+  --accent-g: 75;
+  --accent-b: 15;
+
+  /* Nav (semi-transparent for backdrop-filter blur) */
+  --nav-bg: rgba(250, 248, 244, 0.85);
+
+  /* Project grid cells */
+  --cell-hover:       #EDE4D8;
+  --cell-active-bg:   #E2D8CC;
+  --cell-active-text: #1A1A1A;
+
+  /* Project drawer */
+  --drawer-bg: #F0E8DC;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+
+/* -------------------------------------------------------------
+   2. CSS CUSTOM PROPERTIES — DARK MODE
+   Applied when <body> carries the .dark class
+   ------------------------------------------------------------- */
+body.dark {
+  /* Background tiers */
+  --bg:       #1A1614;
+  --bg2:      #221E1A;
+  --bg3:      #2A2420;
+
+  /* Text tiers */
+  --text:     #F0EBE3;
+  --text2:    #9A9088;
+  --text3:    #6A6058;
+
+  /* Borders */
+  --border:   #2E2824;
+  --border2:  #382E28;
+
+  /* Accent */
+  --accent:       #E8733A;
+  --accent-light: #3A1F0D;
+  --accent-dark:  #F08050;
+
+  /* Accent as raw RGB channels */
+  --accent-r: 232;
+  --accent-g: 115;
+  --accent-b: 58;
+
+  /* Nav */
+  --nav-bg: rgba(26, 22, 20, 0.85);
+
+  /* Project grid cells */
+  --cell-hover:       #2A2420;
+  --cell-active-bg:   #322820;
+  --cell-active-text: #F0EBE3;
+
+  /* Project drawer */
+  --drawer-bg: #221E1A;
+}
+
+
+/* -------------------------------------------------------------
+   3. RESET
+   ------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+
+/* -------------------------------------------------------------
+   4. BASE TYPOGRAPHY & BODY
+   ------------------------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text);
+  background-color: var(--bg);
+
+  /* Smooth color transition whenever .dark is toggled */
+  transition:
+    color          0.35s ease,
+    background     0.35s ease,
+    border-color   0.35s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h1 {
+  font-size: clamp(32px, 5vw, 54px);
+}
+
+/* Eyebrow labels — used across multiple sections */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+
+/* -------------------------------------------------------------
+   5. LAYOUT UTILITIES
+   ------------------------------------------------------------- */
+
+/* Max-width wrapper used inside every section */
+.section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Scroll-reveal base state — elements are invisible until
+   the Intersection Observer adds .visible in script.js      */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay variants */
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+
+
+/* -------------------------------------------------------------
+   6. PROGRESS BAR
+   ------------------------------------------------------------- */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 100;
+  /* No transition — instant tracking feels more responsive */
+  pointer-events: none;
+}
+
+
+/* -------------------------------------------------------------
+   7. NAV
+   ------------------------------------------------------------- */
+#nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  transition:
+    background    0.35s ease,
+    border-color  0.35s ease;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  height: 58px;
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.nav-logo:hover {
+  color: var(--accent);
+}
+
+/* Right-side link group */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Nav anchor links */
+.nav-links a {
+  position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text2);
+  padding-top: 3px;
+  padding-bottom: 3px;
+  transition: color 0.2s ease;
+}
+
+/* Sliding underline — starts at width 0, expands to 100% on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Dark mode toggle button */
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 6px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  transition:
+    background     0.35s ease,
+    border-color   0.35s ease;
+}
+
+/* Circle indicator inside the pill */
+.toggle-pill {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--text3);
+  flex-shrink: 0;
+  transition: background 0.35s ease;
+}
+
+/* Pill indicator turns accent when dark mode is active */
+body.dark .toggle-pill {
+  background: var(--accent);
+}
+
+/* Toggle label text */
+.toggle-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text2);
+  transition: color 0.35s ease;
+  user-select: none;
+}
+
+/* Hamburger button — hidden on desktop, shown at mobile */
+#hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition:
+    transform   0.25s ease,
+    opacity     0.25s ease,
+    background  0.35s ease;
+}
+
+
+/* -------------------------------------------------------------
+   8. HERO SECTION
+   ------------------------------------------------------------- */
+
+/* Section shell — full viewport, canvas stacks behind content */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--bg);
+  transition: background-color 0.35s ease;
+}
+
+/* Canvas fills the entire hero behind everything */
+#neural-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+}
+
+/* Content sits above canvas */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4.5rem 2.5rem;
+}
+
+/* Hero eyebrow is slightly larger than the global .eyebrow (11px) */
+#hero .eyebrow {
+  font-size: 13px;
+  margin-bottom: 1.1rem;
+}
+
+/* Typewriter headline */
+#hero h1 {
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  /* height held open so layout doesn't jump while string is empty */
+  min-height: 1.25em;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+/* Blinking cursor — 3px wide bar, accent color */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  /* Match the line-height of the h1 */
+  height: 0.85em;
+  background: var(--accent);
+  margin-left: 4px;
+  vertical-align: baseline;
+  flex-shrink: 0;
+  animation: blink 0.75s step-end infinite;
+  transition: background 0.35s ease;
+}
+
+@keyframes blink {
+  0%,  100% { opacity: 1; }
+  50%        { opacity: 0; }
+}
+
+/* Description line */
+.hero-desc {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 500px;
+  margin-bottom: 2.25rem;
+  line-height: 1.75;
+  transition: color 0.35s ease;
+}
+
+/* CTA row */
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---- Primary button ---- */
+.btn-primary {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition:
+    background  0.2s ease,
+    opacity     0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+}
+
+/* ---- Secondary button — fill sweeps upward on hover ---- */
+.btn-secondary {
+  display: inline-block;
+  position: relative;
+  padding: 0.65rem 1.5rem;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  /* isolate creates a new stacking context so z-index: -1
+     on ::before stays behind text but above the page bg  */
+  isolation: isolate;
+  transition:
+    color         0.25s ease,
+    border-color  0.35s ease;
+}
+
+/* The fill plane — starts below the button, slides up on hover */
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateY(100%);
+  transition:
+    transform    0.28s ease,
+    background   0.35s ease;
+  z-index: -1;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+}
+
+.btn-secondary:hover::before {
+  transform: translateY(0);
+}
+
+
+/* -------------------------------------------------------------
+   8a. HERO LOAD ANIMATION
+   All hero children start invisible; they reveal in sequence
+   when script.js adds .loaded to #hero after a 200ms delay.
+   ------------------------------------------------------------- */
+
+/* Initial hidden state for each animated child */
+#hero .eyebrow,
+#hero h1,
+#hero .hero-desc,
+#hero .hero-ctas {
+  opacity: 0;
+  transition:
+    opacity    0.6s ease,
+    transform  0.6s ease;
+}
+
+#hero .eyebrow  { transform: translateY(10px); }
+#hero h1        { transform: translateY(12px); }
+#hero .hero-desc { transform: translateY(12px); }
+#hero .hero-ctas { transform: translateY(14px); }
+
+/* Loaded state — transitions fire with staggered delays */
+#hero.loaded .eyebrow   {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+#hero.loaded h1          {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.14s;
+}
+#hero.loaded .hero-desc  {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.28s;
+}
+#hero.loaded .hero-ctas  {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.42s;
+}
+
+
+/* =============================================================
+   SECTION DIVIDERS
+   Subtle top border separates content sections from each other.
+   ============================================================= */
+#about,
+#projects,
+#contact {
+  border-top: 1px solid var(--border);
+  transition: border-color 0.35s ease;
+}
+
+
+/* =============================================================
+   9. ABOUT SECTION
+   ============================================================= */
+#about {
+  padding: 4.5rem 2.5rem;
+}
+
+/* Two-column grid: narrow left (photo + widget), wide right (copy) */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 3rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ---- Left column ---- */
+.about-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-left .eyebrow {
+  margin-bottom: 0.3rem;
+}
+
+.about-left h2 {
+  margin-bottom: 0;
+}
+
+/* Circular photo */
+.about-photo {
+  width: 100%;
+  max-width: 200px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border2);
+  background: var(--bg2);   /* visible while image loads / as placeholder */
+  display: block;
+  transition:
+    border-color  0.35s ease,
+    background    0.35s ease;
+}
+
+/* ---- Right column ---- */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.about-right p {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.75;
+  transition: color 0.35s ease;
+}
+
+/* Skill tag row */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Individual tag pill */
+.tag {
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--accent-light);
+  color: var(--accent);
+  cursor: default;
+  transition:
+    background  0.2s ease,
+    color       0.2s ease;
+}
+
+/* Invert on hover — bg becomes accent, text becomes white */
+.tag:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+
+/* =============================================================
+   10. SPOTIFY WIDGET
+   Static placeholder — sits at bottom of about-left column.
+   ============================================================= */
+.spotify-widget {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  max-width: 210px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: default;
+  transition:
+    background    0.2s ease,
+    border-color  0.35s ease;
+}
+
+.spotify-widget:hover {
+  background: var(--bg3);
+}
+
+/* Square album art placeholder */
+.spotify-art {
+  width: 38px;
+  height: 38px;
+  border-radius: 5px;
+  background: var(--bg3);
+  flex-shrink: 0;
+  transition: background 0.35s ease;
+}
+
+/* Text block */
+.spotify-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;   /* allow text to truncate inside flex */
+  flex: 1;
+}
+
+.spotify-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color 0.35s ease;
+}
+
+.spotify-track {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.35s ease;
+}
+
+/* When no track: show in secondary color — JS will toggle a class later */
+.spotify-widget.not-playing .spotify-track {
+  color: var(--text2);
+}
+
+.spotify-artist {
+  font-size: 10px;
+  color: var(--text3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.35s ease;
+}
+
+/* Animated equalizer bars */
+.spotify-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.spotify-bars span {
+  display: block;
+  width: 2.5px;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 1px;
+  transform-origin: bottom;
+  animation: spotify-bounce 0.85s ease-in-out infinite;
+  transition: background 0.35s ease;
+}
+
+.spotify-bars span:nth-child(2) { animation-delay: 0.18s; }
+.spotify-bars span:nth-child(3) { animation-delay: 0.36s; }
+
+/* Hide bars when nothing is playing */
+.spotify-widget.not-playing .spotify-bars {
+  visibility: hidden;
+}
+
+@keyframes spotify-bounce {
+  0%, 100% { transform: scaleY(0.3); }
+  50%       { transform: scaleY(1);   }
+}
+
+
+/* =============================================================
+   11. PROJECTS SECTION
+   ============================================================= */
+#projects {
+  padding: 4.5rem 2.5rem;
+}
+
+/* Constrain the projects content area to 1100px, centered */
+#projects .section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.projects-header {
+  margin-bottom: 2rem;
+}
+
+.projects-header .eyebrow {
+  margin-bottom: 0.3rem;
+}
+
+/* Outer grid shell — gap: 1px + bg on the grid creates hairline
+   lines between cells without extra border markup             */
+#projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+
+/* =============================================================
+   12. PROJECT CELLS
+   ============================================================= */
+.project-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 96px;
+  padding: 18px 20px 14px;
+  background: var(--bg);
+  cursor: pointer;
+  transition:
+    background  0.2s ease,
+    color       0.2s ease;
+}
+
+/* Top: title + subcategory stacked */
+.cell-top {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cell-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.cell-sub {
+  font-size: 11px;
+  color: var(--text3);
+  transition: color 0.2s ease;
+}
+
+/* Icon container — sits above the project name in each cell */
+.cell-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--accent-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  transition: background 0.35s ease;
+}
+
+.cell-icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  transition: color 0.35s ease;
+}
+
+/* Bottom: chevron aligned to the right */
+.cell-bottom {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* SVG chevron — hidden until hover/active */
+.cell-chevron {
+  width: 12px;
+  height: 12px;
+  color: var(--accent);
+  opacity: 0;
+  transition:
+    opacity    0.2s ease,
+    transform  0.25s ease,
+    color      0.35s ease;
+}
+
+/* Hover state */
+.project-cell:hover {
+  background: var(--cell-hover);
+}
+
+.project-cell:hover .cell-name {
+  color: var(--accent);
+}
+
+.project-cell:hover .cell-chevron {
+  opacity: 1;
+}
+
+/* Active (open drawer) state */
+.project-cell.active {
+  background: var(--cell-active-bg);
+}
+
+.project-cell.active .cell-name {
+  color: var(--cell-active-text);
+}
+
+.project-cell.active .cell-sub {
+  color: var(--accent);
+}
+
+.project-cell.active .cell-chevron {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+
+/* Staggered scroll reveal — right cell delays 80ms */
+.project-cell.reveal-right {
+  transition-delay: 0.08s;
+}
+
+
+/* =============================================================
+   13. PROJECT DRAWER
+   Uses the CSS grid-template-rows 0fr → 1fr trick for a
+   smooth height animation without JS measuring element height.
+   ============================================================= */
+
+/* The drawer spans both grid columns */
+.drawer {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  background: var(--drawer-bg);
+  border-top: 0px solid var(--border);
+  transition:
+    grid-template-rows  0.38s ease,
+    border-top-width    0.38s ease,
+    background          0.35s ease;
+}
+
+/* Open state — JS adds .open */
+.drawer.open {
+  grid-template-rows: 1fr;
+  border-top-width: 1px;
+}
+
+/* Inner wrapper — overflow: hidden is required for the
+   grid-rows trick to clip content at height 0             */
+.drawer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Content area inside the drawer */
+.drawer-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  padding: 2rem 2.5rem;
+}
+
+/* Left: full title + description */
+.drawer-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  transition: color 0.35s ease;
+}
+
+.drawer-desc {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.75;
+  transition: color 0.35s ease;
+}
+
+/* Right: tags + link buttons */
+.drawer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.drawer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Drawer tags reuse .tag but can be slightly smaller */
+.drawer-tags .tag {
+  font-size: 11px;
+  padding: 0.22rem 0.65rem;
+}
+
+.drawer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Outline link buttons — fill on hover */
+.drawer-link {
+  display: inline-block;
+  position: relative;
+  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color         0.22s ease,
+    border-color  0.35s ease;
+}
+
+.drawer-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateY(100%);
+  transition:
+    transform   0.22s ease,
+    background  0.35s ease;
+  z-index: -1;
+}
+
+.drawer-link:hover {
+  color: #fff;
+}
+
+.drawer-link:hover::before {
+  transform: translateY(0);
+}
+
+
+/* =============================================================
+   14. CONTACT SECTION
+   ============================================================= */
+#contact {
+  padding: 4.5rem 2.5rem 5rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Left: eyebrow, heading, description */
+.contact-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.contact-left .eyebrow {
+  margin-bottom: 0;
+}
+
+.contact-left h2 {
+  margin-bottom: 0;
+}
+
+.contact-left p {
+  font-size: 15px;
+  color: var(--text2);
+  line-height: 1.75;
+  transition: color 0.35s ease;
+}
+
+/* Right: warm contact block */
+.contact-right {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contact-block {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition:
+    background    0.35s ease,
+    border-color  0.35s ease;
+}
+
+/* Each link row */
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  transition:
+    background    0.2s ease,
+    border-color  0.35s ease;
+}
+
+.contact-row:last-child {
+  border-bottom: none;
+}
+
+/* Row hover — background warms to accent-light */
+.contact-row:hover {
+  background: var(--accent-light);
+}
+
+/* Name + handle stacked */
+.contact-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.35s ease;
+}
+
+.contact-handle {
+  font-size: 11px;
+  color: var(--text3);
+  transition: color 0.35s ease;
+}
+
+/* Arrow icon — hidden at rest, nudges on hover */
+.contact-arrow {
+  font-size: 14px;
+  color: var(--accent);
+  opacity: 0;
+  transform: translate(0, 0);
+  transition:
+    opacity    0.2s ease,
+    transform  0.2s ease,
+    color      0.35s ease;
+}
+
+.contact-row:hover .contact-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+
+/* =============================================================
+   15. FOOTER
+   ============================================================= */
+#footer {
+  padding: 1.25rem 2.5rem;
+  border-top: 1px solid var(--border);
+  transition: border-color 0.35s ease;
+}
+
+#footer .section-inner {
+  display: flex;
+  align-items: center;
+}
+
+#footer span {
+  font-size: 11px;
+  color: var(--text3);
+  transition: color 0.35s ease;
+}
+
+
+/* =============================================================
+   16. MOBILE MEDIA QUERIES
+   ============================================================= */
+
+/* ---- Tablet / mobile — max 768px ---- */
+@media (max-width: 768px) {
+
+  /* Nav: full-width inner, no max-width cap */
+  .nav-inner {
+    max-width: none;
+    padding: 0 1.5rem;
+  }
+
+  /* Hamburger: show at mobile */
+  #hamburger {
+    display: flex;
+  }
+
+  /* Nav menu: hidden dropdown by default */
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    right: 1.5rem;
+    width: 180px;
+    background: rgba(250, 248, 244, 0.93);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition:
+      opacity    0.2s ease,
+      transform  0.2s ease,
+      background 0.35s ease,
+      border-color 0.35s ease;
+    z-index: 49;
+  }
+
+  /* Nav menu: open state */
+  .nav-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  /* Dark mode: use dark semi-transparent background */
+  body.dark .nav-menu {
+    background: rgba(26, 22, 20, 0.93);
+  }
+
+  /* Links stack vertically inside the dropdown */
+  .nav-menu .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Full-width tappable rows */
+  .nav-menu .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0;
+  }
+
+  /* Hamburger → X animation */
+  #hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  #hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  #hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Hero: tighter padding, text already scales via clamp */
+  .hero-content {
+    padding: 3rem 1.5rem;
+  }
+
+  /* About: single column, photo centered */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-photo {
+    max-width: 160px;
+    margin: 0 auto;
+  }
+
+  .spotify-widget {
+    margin: 0 auto;
+  }
+
+  .about-right {
+    align-items: flex-start;
+  }
+
+  /* Projects grid: single column */
+  #projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Drawer content: single column, description above tags */
+  .drawer-content {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contact: single column */
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* General section padding reduction */
+  #about,
+  #projects,
+  #contact {
+    padding: 3rem 1.5rem;
+  }
+
+  #contact {
+    padding-bottom: 4rem;
+  }
+
+  #footer {
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+
+/* ---- Small mobile — max 480px ---- */
+@media (max-width: 480px) {
+
+  /* Lower the clamp floor for the hero headline */
+  #hero h1 {
+    font-size: clamp(26px, 8vw, 54px);
+  }
+
+  /* Ensure skill tags and drawer tags wrap without overflow */
+  .skill-tags,
+  .drawer-tags {
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 0.25rem 0.6rem;
+  }
+
+  /* Footer centered on small screens */
+  #footer .section-inner {
+    justify-content: center;
+  }
+}
